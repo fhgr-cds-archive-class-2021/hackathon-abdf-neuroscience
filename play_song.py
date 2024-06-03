@@ -36,6 +36,10 @@ def open_playlist_by_mood(client_id, client_secret, redirect_uri, mood):
         playlist_items = playlists_dict['items']
         if playlist_items:
             playlist_uri = playlist_items[0]['uri']
+            playlist_url = playlist_items[0]['external_urls']['spotify']
+            
+            # Open the playlist in the browser
+            webbrowser.open(playlist_url)
             # Get the user's devices
             devices = spotify_object.devices()
             if devices['devices']:
