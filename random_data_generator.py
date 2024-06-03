@@ -17,22 +17,24 @@ class ContinuousLogger:
     
     def generate_random_data(self):
         return {
-            'Delta': random.uniform(-5.0, 5.0),
-            'Theta': random.uniform(-5.0, 5.0),
-            'Alpha': random.uniform(-5.0, 5.0),
-            'Sigma': random.uniform(-5.0, 5.0),
-            'Beta': random.uniform(-5.0, 5.0),
-            'Gamma': random.uniform(-5.0, 5.0),
+            'stateless_z_scores': [{
+                'Alpha': random.uniform(-1.0, 1.0),
+                'Beta': random.uniform(-5.0, 5.0),
+                'Gamma': random.uniform(-5.0, 5.0),
+                'Delta': random.uniform(-5.0, 5.0),
+                'Theta': random.uniform(-5.0, 5.0),
+                'Sigma': random.uniform(-5.0, 5.0),
+            }]
         }
+
+    def generate_mock_event(self):
+        return type('Event', (object,), {'message': self.generate_random_data()})
 
     def write_log_continuously(self):
         while True:
-            data = [self.generate_random_data()]
-            logging.info(data)
-            time.sleep(1)
+            data = self.generate_mock_event()
+            logging.info(data.message)
+            save_data(data)
+            time.sleep(0.1)
 
-if __name__ == '__main__':
-    # Ask user for output preference
-    output_option = 'console'
-    logger = ContinuousLogger(output_option)
-    logger.write_log_continuously()
+
