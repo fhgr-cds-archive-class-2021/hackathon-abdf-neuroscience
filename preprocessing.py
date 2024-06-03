@@ -31,8 +31,6 @@ def preprocessing_pipeline(alpha, beta, gamma, theta, sigma):
 
                 return max_freq
 
-    print("YEE")
-
 
 def map_index_to_brain_wave(index)
     brain_waves = ['alpha', 'beta', 'gamma', 'theta','theta']
