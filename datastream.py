@@ -4,6 +4,8 @@ import json
 import logging
 from idun_guardian_sdk import GuardianClient
 from preprocessing import preprocessing_pipeline, map_index_to_brain_wave
+from random_data_generator import ContinuousLogger
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -20,6 +22,8 @@ LED_SLEEP: bool = False
 my_api_token = "idun_2YV1BILW_T95lLajPwP2WHLqAxuYyuYheMKj-frjs7jBQz1wsbuaxSOh"
 last_wave_index = None
 
+target_brain_wave = 2 # gamma
+
 def save_data(event):
     global last_wave_index
     alpha = event.message['stateless_z_scores'][0]['Alpha']
@@ -34,13 +38,12 @@ def save_data(event):
     if new_wave_index:
         print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
         # play spotipy song
-        if last_wave_index == 0 and new_wave_index == 1:
-            print("From Alpha to Beta")
-        elif last_wave_index == 1 and new_wave_index == 0:
-            print("From Beta to Alpha")
+        if new_wave_index != target_brain_wave:
+            print("From xxx to Gamma")
+        else:
+            print("Gamma detected")
 
-        last_wave_index = new_wave_index
-
+'''
 if __name__ == "__main__":
     client = GuardianClient(api_token=my_api_token)
     client.address = asyncio.run(client.search_device())
@@ -54,3 +57,13 @@ if __name__ == "__main__":
             led_sleep=LED_SLEEP,
         )
     )
+'''
+
+# for testing purposes with simulated data
+if __name__ == "__main__":
+    logger = ContinuousLogger(output='console')
+    while True:
+        data = logger.generate_mock_event()
+        logging.info(data.message)
+        save_data(data)
+        time.sleep(0.5)
