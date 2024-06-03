@@ -18,17 +18,28 @@ RECORDING_TIMER: int =  60 * 60 * 10  # 10 hours
 LED_SLEEP: bool = False
 
 my_api_token = "idun_2YV1BILW_T95lLajPwP2WHLqAxuYyuYheMKj-frjs7jBQz1wsbuaxSOh"
+last_wave_index = None
 
 def save_data(event):
-    logging.info(event.message['stateless_z_scores'])
+    global last_wave_index
     alpha = event.message['stateless_z_scores'][0]['Alpha']
     beta = event.message['stateless_z_scores'][0]['Beta']
     gamma = event.message['stateless_z_scores'][0]['Gamma']
+    delta = event.message['stateless_z_scores'][0]['Delta']
     theta = event.message['stateless_z_scores'][0]['Theta']
     sigma = event.message['stateless_z_scores'][0]['Sigma']
-    wave_index = preprocessing_pipeline(alpha, beta, gamma, theta, sigma)
-    if wave_index:
-        print(f"Brain wave detected: {map_index_to_brain_wave(wave_index)}")
+
+    new_wave_index = preprocessing_pipeline(alpha, beta, gamma, delta, theta, sigma)
+
+    if new_wave_index:
+        print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
+        # play spotipy song
+        if last_wave_index == 0 and new_wave_index == 1:
+            print("From Alpha to Beta")
+        elif last_wave_index == 1 and new_wave_index == 0:
+            print("From Beta to Alpha")
+
+        last_wave_index = new_wave_index
 
 if __name__ == "__main__":
     client = GuardianClient(api_token=my_api_token)
