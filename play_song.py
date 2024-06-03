@@ -1,8 +1,9 @@
-import json 
+import json
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import webbrowser
 
+# User credentials and details
 username = "cwwn8oq4zxjcm81ny63fwr9mk"
 client_id = "3a97225143084aefb89a00c20dd43547"
 client_secret = "1013b6c189684248b842c82ca1e0b152"
@@ -10,7 +11,8 @@ redirect_uri = "http://google.com/callback/"
 
 def authenticate_spotify(client_id, client_secret, redirect_uri):
     try:
-        oauth_object = SpotifyOAuth(client_id, client_secret, redirect_uri)
+        scope = "user-read-playback-state,user-modify-playback-state"
+        oauth_object = SpotifyOAuth(client_id, client_secret, redirect_uri, scope=scope)
         token_dict = oauth_object.get_access_token()
         token = token_dict['access_token']
         spotify_object = spotipy.Spotify(auth=token)
@@ -34,12 +36,6 @@ def open_playlist_by_mood(client_id, client_secret, redirect_uri, mood):
         playlist_items = playlists_dict['items']
         if playlist_items:
             playlist_uri = playlist_items[0]['uri']
-            playlist_url = playlist_items[0]['external_urls']['spotify']
-
-            # Open the playlist in the web browser
-            webbrowser.open(playlist_url)
-            print('Playlist has opened in your browser.')
-
             # Get the user's devices
             devices = spotify_object.devices()
             if devices['devices']:
