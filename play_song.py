@@ -54,5 +54,5 @@ def open_playlist_by_mood(client_id, client_secret, redirect_uri, mood):
         print(f"An error occurred: {e}")
 
 # Example usage
-mood = input("Enter the mood for the playlist: ")
-open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
+#mood = input("Enter the mood for the playlist: ")
+#open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)

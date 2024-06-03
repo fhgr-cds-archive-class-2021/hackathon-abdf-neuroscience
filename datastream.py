@@ -5,7 +5,7 @@ import logging
 from idun_guardian_sdk import GuardianClient
 from preprocessing import preprocessing_pipeline, map_index_to_brain_wave
 from random_data_generator import ContinuousLogger
-
+from play_song import open_playlist_by_mood, client_id, client_secret, redirect_uri
 
 logging.basicConfig(
     level=logging.INFO,
@@ -67,3 +67,7 @@ if __name__ == "__main__":
         logging.info(data.message)
         save_data(data)
         time.sleep(0.5)
+        mood = "happy"
+        open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
+        
+        
