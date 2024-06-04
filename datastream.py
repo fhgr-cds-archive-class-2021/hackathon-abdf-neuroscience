@@ -33,7 +33,7 @@ time_delta = 0
 target_song = None
 current_state = None
 current_song = None
-song_names = ['50 Hz: High Level Cognition', '50 Hz: Intense Awarness', '50 Hz: Focus Music', 'Candy Shop']
+song_names = ['50 Hz: High Level Cognition', '50 Hz: Intense Awarness', '50 Hz: Focus Music', '50 Cent - Candy Shop']
 current_brain_waves = [None, None, None, None, None, None]
 
 def save_data(event):
