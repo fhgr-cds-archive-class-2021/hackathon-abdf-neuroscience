@@ -11,7 +11,7 @@
   <div class="text-black">
     <ul>
       <li v-for="brainwave in currentBrainwaves" :key="brainwave">
-        {{ brainwave }}
+        {{ brainwave.wave }}: {{ brainwave.value }}
       </li>
     </ul>
   </div>
@@ -34,17 +34,13 @@ const currentMood = ref(null)
 const currentBrainwaves = ref([])
 
 const getSelectedMood = () => {
-  if (currentMood.value) {
-    axios.post('http://localhost:8000/target_brain_wave', { brain_wave: currentMood.value })
-      .then(response => {
-        console.log('Response:', response.data)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  } else {
-    alert('Please select a mood')
-  }
+  axios.post('http://localhost:8000/target_brain_wave', { brain_wave: currentMood.value })
+    .then(response => {
+      console.log('Response:', response.data)
+    })
+    .catch(error => {
+      console.error('Error:', error)
+    })
 }
 
 setInterval(() => {
