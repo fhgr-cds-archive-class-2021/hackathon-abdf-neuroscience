@@ -53,6 +53,38 @@ def open_playlist_by_mood(client_id, client_secret, redirect_uri, mood):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
+def open_song_by_name(client_id, client_secret, redirect_uri, song_name):
+    try:
+        spotify_object, user_name = authenticate_spotify(client_id, client_secret, redirect_uri)
+        if not spotify_object or not user_name:
+            print("Authentication failed.")
+            return
+
+        print(f"Welcome, {user_name['display_name']}")
+
+        results = spotify_object.search(song_name, 1, 0, "track")
+        tracks_dict = results['tracks']
+        track_items = tracks_dict['items']
+        if track_items:
+            track_uri = track_items[0]['uri']
+            track_url = track_items[0]['external_urls']['spotify']
+            
+            # Open the song in the browser
+            #webbrowser.open(track_url)
+            # Get the user's devices
+            devices = spotify_object.devices()
+            if devices['devices']:
+                device_id = devices['devices'][0]['id']
+                spotify_object.start_playback(device_id=device_id, uris=[track_uri])
+                print('Song is now playing.')
+            else:
+                print("No active devices found. Please open Spotify on a device and try again.")
+        else:
+            print("No songs found with that name.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 # Example usage
 #mood = input("Enter the mood for the playlist: ")
 #open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
