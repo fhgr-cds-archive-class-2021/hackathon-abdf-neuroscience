@@ -150,7 +150,7 @@ class BackgroundTasks_Generator(threading.Thread):
             time.sleep(1)
 
 
-t = BackgroundTasks_Generator()
+t = BackgroundTasks_Live()
 
 # for testing purposes with simulated data
 if __name__ == "__main__":

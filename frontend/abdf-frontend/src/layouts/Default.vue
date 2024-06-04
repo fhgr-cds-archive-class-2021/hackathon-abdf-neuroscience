@@ -31,7 +31,13 @@ const moods = ref([
 
 const currentMood = ref(null)
 
-const currentBrainwaves = ref([])
+const currentBrainwaves = ref([
+  { wave: 'alpha', value: 0 },
+  { wave: 'beta', value: 0 },
+  { wave: 'delta', value: 0 },
+  { wave: 'theta', value: 0 },
+  { wave: 'gamma', value: 0 },
+])
 
 const getSelectedMood = () => {
   axios.post('http://localhost:8000/target_brain_wave', { brain_wave: currentMood.value })
