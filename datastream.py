@@ -95,9 +95,9 @@ async def root():
 
 # app.post target_brain_wave
 @app.post("/target_brain_wave")
-async def set_target_brain_wave(brain_wave: int):
+async def set_target_brain_wave(brainwave):
     global target_brain_wave
-    target_brain_wave = brain_wave
+    target_brain_wave = brainwave
     return f"Target brain wave set to {map_index_to_brain_wave(target_brain_wave)}"
 
 @app.get("/play")
@@ -123,6 +123,11 @@ async def get_current_brain_waves():
         })
 
     return json.dumps(_current_brain_waves)
+
+@app.get("/get_current_mood")
+async def get_current_mood():
+    global current_state
+    return str(current_state)
 
 class BackgroundTasks_Live(threading.Thread):
     def run(self,*args,**kwargs):
@@ -150,7 +155,7 @@ class BackgroundTasks_Generator(threading.Thread):
             time.sleep(1)
 
 
-t = BackgroundTasks_Live()
+t = BackgroundTasks_Generator()
 
 # for testing purposes with simulated data
 if __name__ == "__main__":

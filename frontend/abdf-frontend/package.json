@@ -22,6 +22,7 @@
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.7",
+    "apexcharts": "^3.49.1",
     "eslint": "^8.56.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -32,14 +33,16 @@
     "nuxt": "^3.9.1",
     "nuxt-gtag": "^1.1.2",
     "nuxt-headlessui": "^1.1.5",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "vue-apexcharts": "^1.6.2"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.10",
     "aos": "^3.0.0-beta.6",
     "axios": "^1.7.2",
     "daisyui": "^4.5.0",
-    "postcss-custom-properties": "^13.3.4"
+    "postcss-custom-properties": "^13.3.4",
+    "vue3-apexcharts": "^1.5.3"
   },
   "repository": {
     "type": "git",
