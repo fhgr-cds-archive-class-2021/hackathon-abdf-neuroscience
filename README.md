@@ -22,7 +22,12 @@ We try to pick a playlist according to the given mood and stimulate the brain to
     - Here we created a data simulator for testing our code as it is hard to achieve a consistent brain wave change
 - [Preprocessing](./Preprocessing)
     - Here we implemented our preprocessing logic
-- [Start Code](./Pipeline)
+- [GUI](./frontend/abdf-frontend)
+    - We added a little frontend for easier target value selection (WIP)
+- [Start Code](./)
     - To run the code use the following:
         - ``python .\datastream.py``
-    - Instructions for data pipeline and gui: [README](./Gui/README.md).
+    - Then start the frontend:
+        - ``cd .\frontend\abdf-frontend``
+        - ``yarn install``
+        - ``yarn run dev``
