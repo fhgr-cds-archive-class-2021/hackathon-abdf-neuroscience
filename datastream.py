@@ -35,14 +35,14 @@ def save_data(event):
 
     new_wave_index = preprocessing_pipeline(alpha, beta, gamma, delta, theta, sigma)
 
-    if new_wave_index:
+    if new_wave_index or new_wave_index == 0:
         print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
         # play spotipy song
         if new_wave_index != target_brain_wave:
-            print("From xxx to Gamma")
+            print(f"From {map_index_to_brain_wave(new_wave_index)} to Gamma")
         else:
             print("Gamma detected")
-
+            
 '''
 if __name__ == "__main__":
     client = GuardianClient(api_token=my_api_token)
@@ -68,6 +68,6 @@ if __name__ == "__main__":
         save_data(data)
         time.sleep(0.5)
         mood = "happy"
-        open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
+        #open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
         
         

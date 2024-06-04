@@ -47,6 +47,7 @@ def map_index_to_brain_wave(index):
     brain_waves = ['alpha', 'beta', 'gamma', 'delta', 'theta', 'sigma']
     return brain_waves[index]
 
+
 def gamma_trend():
     global gamma_queue, window
     if len(gamma_queue) < window:

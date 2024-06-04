@@ -18,7 +18,7 @@ class ContinuousLogger:
     def generate_random_data(self):
         return {
             'stateless_z_scores': [{
-                'Alpha': random.uniform(-1.0, 1.0),
+                'Alpha': random.uniform(-5.0, 5.0),
                 'Beta': random.uniform(-5.0, 5.0),
                 'Gamma': random.uniform(-5.0, 5.0),
                 'Delta': random.uniform(-5.0, 5.0),
