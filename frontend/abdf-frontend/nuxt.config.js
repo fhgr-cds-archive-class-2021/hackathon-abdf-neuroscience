@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     id: 'G-M1KERXTK1H', // TODO: Add your google analytics 4 tag here
   },
 
+  ssr: false,
+  
   srcDir: './src',
 
   runtimeConfig: {
