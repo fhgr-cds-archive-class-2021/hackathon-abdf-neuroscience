@@ -60,14 +60,25 @@ if __name__ == "__main__":
 '''
 
 # for testing purposes with simulated data
+# for testing purposes with simulated data
 if __name__ == "__main__":
     logger = ContinuousLogger(output='console')
+    start_time = time.time()
     while True:
         data = logger.generate_mock_event()
         logging.info(data.message)
         save_data(data)
-        time.sleep(0.5)
-        mood = "happy"
+        elapsed_time = time.time() - start_time
+        #print(f"Elapsed time: {elapsed_time}")
+        if elapsed_time >   10:
+            print("10 seconds elapsed")
+            start_time = time.time()
+            if last_wave_index != target_brain_wave:
+                print(f"Change Song beausse we are no longer in Gamma")
+                open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
+        time.sleep(0.1)
+        
+        #mood = "happy"
         #open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
         
         
