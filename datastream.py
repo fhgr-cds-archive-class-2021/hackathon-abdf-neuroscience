@@ -23,17 +23,19 @@ RECORDING_TIMER: int =  60 * 60 * 10  # 10 hours
 LED_SLEEP: bool = False
 
 my_api_token = "idun_2YV1BILW_T95lLajPwP2WHLqAxuYyuYheMKj-frjs7jBQz1wsbuaxSOh"
-last_wave_index = None
 
 target_brain_wave = 2 # gamma
 start_time = time.time()
 time_delta = 0
+target_song = None
+current_state = None
 
 def save_data(event):
     
-    global last_wave_index
     global start_time
     global time_delta
+    global target_song
+    global current_state
     
     alpha = event.message['stateless_z_scores'][0]['Alpha']
     beta = event.message['stateless_z_scores'][0]['Beta']
@@ -43,6 +45,7 @@ def save_data(event):
     sigma = event.message['stateless_z_scores'][0]['Sigma']
 
     new_wave_index = preprocessing_pipeline(alpha, beta, gamma, delta, theta, sigma)
+    current_state = new_wave_index
 
     if new_wave_index or new_wave_index == 0:
         print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
@@ -58,9 +61,10 @@ def save_data(event):
         if time_delta > 10:
             start_time = time.time()
             print("10 seconds elapsed")
-            if last_wave_index != target_brain_wave:
+            if new_wave_index != target_brain_wave:
+                target_song = '50 Hz: High Level Cognition'
                 print(f"Change Song beausse we are no longer in Gamma")
-                open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
+                #open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
             
 '''
 if __name__ == "__main__":
