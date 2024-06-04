@@ -23,9 +23,15 @@ my_api_token = "idun_2YV1BILW_T95lLajPwP2WHLqAxuYyuYheMKj-frjs7jBQz1wsbuaxSOh"
 last_wave_index = None
 
 target_brain_wave = 2 # gamma
+start_time = time.time()
+time_delta = 0
 
 def save_data(event):
+    
     global last_wave_index
+    global start_time
+    global time_delta
+    
     alpha = event.message['stateless_z_scores'][0]['Alpha']
     beta = event.message['stateless_z_scores'][0]['Beta']
     gamma = event.message['stateless_z_scores'][0]['Gamma']
@@ -42,8 +48,18 @@ def save_data(event):
             print(f"From {map_index_to_brain_wave(new_wave_index)} to Gamma")
         else:
             print("Gamma detected")
+    time_delta = time.time() - start_time
+    print("start time: ", start_time)
+    print(f"Time Delta: {time.time()}")
+    print(f"Time Delta: {time_delta}")
+    if time_delta > 10:
+        start_time = time.time()
+        print("10 seconds elapsed")
+        if last_wave_index != target_brain_wave:
+            print(f"Change Song beausse we are no longer in Gamma")
+            open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
             
-'''
+
 if __name__ == "__main__":
     client = GuardianClient(api_token=my_api_token)
     client.address = asyncio.run(client.search_device())
@@ -59,7 +75,6 @@ if __name__ == "__main__":
     )
 '''
 
-# for testing purposes with simulated data
 # for testing purposes with simulated data
 if __name__ == "__main__":
     logger = ContinuousLogger(output='console')
@@ -81,4 +96,4 @@ if __name__ == "__main__":
         #mood = "happy"
         #open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
         
-        
+'''     
