@@ -2,6 +2,9 @@ import asyncio
 import time
 import json
 import logging
+import fastapi
+import uvicorn
+import threading
 from idun_guardian_sdk import GuardianClient
 from preprocessing import preprocessing_pipeline, map_index_to_brain_wave
 from random_data_generator import ContinuousLogger
@@ -75,11 +78,24 @@ if __name__ == "__main__":
     )
 '''
 
+app = fastapi.FastAPI()
+@app.get("/")
+async def root():
+    global time_delta
+    open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
+    return {"message": time_delta}
+
+class BackgroundTasks(threading.Thread):
+    def run(self,*args,**kwargs):
+        logger = ContinuousLogger(output='console')
+        #start_time = time.time()
+        while True:
+            data = logger.generate_mock_event()
+            logging.info(data.message)
+            save_data(data)
+t = BackgroundTasks()
+
 # for testing purposes with simulated data
 if __name__ == "__main__":
-    logger = ContinuousLogger(output='console')
-    #start_time = time.time()
-    while True:
-        data = logger.generate_mock_event()
-        logging.info(data.message)
-        save_data(data)
+    t.start()
+    uvicorn.run(app, host="0.0.0.0", port=8000)
