@@ -39,6 +39,14 @@ def preprocessing_pipeline(alpha, beta, gamma, delta, theta, sigma):
         print(f"Max freq Index: {max_freq}")
         # 0: alpha, 1: beta, 2: gamma, 3: delta, 4: theta, 5: sigma
 
+        mean_freq = mean_freq[-window:]
+        alpha_queue = alpha_queue[-window:]
+        beta_queue = beta_queue[-window:]
+        gamma_queue = gamma_queue[-window:]
+        delta_queue = delta_queue[-window:]
+        theta_queue = theta_queue[-window:]
+        sigma_queue = sigma_queue[-window:]
+
         return max_freq
 
     return None
