@@ -50,8 +50,8 @@ def save_data(event):
             print("Gamma detected")
     time_delta = time.time() - start_time
     print("start time: ", start_time)
-    print(f"Time Delta: {time.time()}")
-    print(f"Time Delta: {time_delta}")
+    #print(f"Time Delta: {time.time()}")
+    #print(f"Time Delta: {time_delta}")
     if time_delta > 10:
         start_time = time.time()
         print("10 seconds elapsed")
