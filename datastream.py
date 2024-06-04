@@ -112,7 +112,17 @@ async def play():
 @app.get("/get_current_brain_waves")
 async def get_current_brain_waves():
     global current_brain_waves
-    return json.dumps(current_brain_waves)
+
+    brain_wave_names = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Theta', 'Sigma']
+    _current_brain_waves = []
+
+    for i in range(len(current_brain_waves)):
+        _current_brain_waves.append({
+            "wave": brain_wave_names[i],
+            "value": current_brain_waves[i]
+        })
+
+    return json.dumps(_current_brain_waves)
 
 class BackgroundTasks_Live(threading.Thread):
     def run(self,*args,**kwargs):
@@ -137,6 +147,7 @@ class BackgroundTasks_Generator(threading.Thread):
             data = logger.generate_mock_event()
             logging.info(data.message)
             save_data(data)
+            time.sleep(1)
 
 
 t = BackgroundTasks_Generator()
