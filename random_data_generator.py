@@ -35,6 +35,6 @@ class ContinuousLogger:
             data = self.generate_mock_event()
             logging.info(data.message)
             save_data(data)
-            time.sleep(0.1)
+            time.sleep(1000)
 
 

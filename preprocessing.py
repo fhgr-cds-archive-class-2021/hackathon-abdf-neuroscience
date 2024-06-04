@@ -26,12 +26,12 @@ def preprocessing_pipeline(alpha, beta, gamma, delta, theta, sigma):
     
     mean_freq = []
     if len(alpha_queue) >= window:     
-        mean_freq.append(np.mean(alpha_queue[:-window]))
-        mean_freq.append(np.mean(beta_queue[:-window]))
-        mean_freq.append(np.mean(gamma_queue[:-window]))
-        mean_freq.append(np.mean(delta_queue[:-window]))
-        mean_freq.append(np.mean(theta_queue[:-window]))
-        mean_freq.append(np.mean(sigma_queue[:-window]))
+        mean_freq.append(np.mean(alpha_queue[-window:]))
+        mean_freq.append(np.mean(beta_queue[-window:]))
+        mean_freq.append(np.mean(gamma_queue[-window:]))
+        mean_freq.append(np.mean(delta_queue[-window:]))
+        mean_freq.append(np.mean(theta_queue[-window:]))
+        mean_freq.append(np.mean(sigma_queue[-window:]))
 
         print(f"Mean freq: {mean_freq}")
         
