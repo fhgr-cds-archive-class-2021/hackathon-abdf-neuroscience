@@ -48,18 +48,18 @@ def save_data(event):
             print(f"From {map_index_to_brain_wave(new_wave_index)} to Gamma")
         else:
             print("Gamma detected")
-    time_delta = time.time() - start_time
-    print("start time: ", start_time)
-    #print(f"Time Delta: {time.time()}")
-    #print(f"Time Delta: {time_delta}")
-    if time_delta > 10:
-        start_time = time.time()
-        print("10 seconds elapsed")
-        if last_wave_index != target_brain_wave:
-            print(f"Change Song beausse we are no longer in Gamma")
-            open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
+        time_delta = time.time() - start_time
+        print("time delta: ", time_delta)
+        #print(f"Time Delta: {time.time()}")
+        #print(f"Time Delta: {time_delta}")
+        if time_delta > 10:
+            start_time = time.time()
+            print("10 seconds elapsed")
+            if last_wave_index != target_brain_wave:
+                print(f"Change Song beausse we are no longer in Gamma")
+                open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
             
-
+'''
 if __name__ == "__main__":
     client = GuardianClient(api_token=my_api_token)
     client.address = asyncio.run(client.search_device())
@@ -78,22 +78,8 @@ if __name__ == "__main__":
 # for testing purposes with simulated data
 if __name__ == "__main__":
     logger = ContinuousLogger(output='console')
-    start_time = time.time()
+    #start_time = time.time()
     while True:
         data = logger.generate_mock_event()
         logging.info(data.message)
         save_data(data)
-        elapsed_time = time.time() - start_time
-        #print(f"Elapsed time: {elapsed_time}")
-        if elapsed_time >   10:
-            print("10 seconds elapsed")
-            start_time = time.time()
-            if last_wave_index != target_brain_wave:
-                print(f"Change Song beausse we are no longer in Gamma")
-                open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
-        time.sleep(0.1)
-        
-        #mood = "happy"
-        #open_playlist_by_mood(client_id, client_secret, redirect_uri, mood)
-        
-'''     
