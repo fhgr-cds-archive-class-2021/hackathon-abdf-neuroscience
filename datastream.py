@@ -33,10 +33,10 @@ time_delta = 0
 target_song = None
 current_state = None
 current_song = None
-song_names = ['50 Hz: High Level Cognition', '50 Hz: Intense Awarness', '50 Hz: Focus Music', '50 Cent - Candy Shop']
+song_names = ['50 Hz: High Level Cognition', '50 Hz: Intense Awarness', '50 Hz: Focus Music', '50 Cent - Candy Shop']  # possible songs
 current_brain_waves = [None, None, None, None, None, None]
 
-def save_data(event):
+def brainwave2song(event):
     
     global start_time
     global time_delta
@@ -45,6 +45,7 @@ def save_data(event):
     global song_names
     global current_brain_waves
     
+    #preoare frequency bands
     alpha = event.message['stateless_z_scores'][0]['Alpha']
     beta = event.message['stateless_z_scores'][0]['Beta']
     gamma = event.message['stateless_z_scores'][0]['Gamma']
@@ -74,7 +75,7 @@ def save_data(event):
             if new_wave_index != target_brain_wave:
                 # randomly select a song
                 target_song = random.choice(song_names)
-                print(f"Change Song beausse we are no longer in Gamma - {target_song}")
+                print(f"Change Song beaucse we are no longer in Gamma - {target_song}")
                 #open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
 
 app = fastapi.FastAPI()
@@ -134,7 +135,7 @@ class BackgroundTasks_Live(threading.Thread):
         client = GuardianClient(api_token=my_api_token)
         client.address = asyncio.run(client.search_device())
 
-        client.subscribe_realtime_predictions(fft=True, jaw_clench=False, handler=save_data)
+        client.subscribe_realtime_predictions(fft=True, jaw_clench=False, handler=brainwave2song)
 
         # start a recording session
         asyncio.run(
@@ -151,11 +152,12 @@ class BackgroundTasks_Generator(threading.Thread):
         while True:
             data = logger.generate_mock_event()
             logging.info(data.message)
-            save_data(data)
+            brainwave2song(data)
             time.sleep(1)
 
-
+# to start the Generator (simulated data) or the Live data
 t = BackgroundTasks_Generator()
+#t = BackgroundTasks_Live()
 
 # for testing purposes with simulated data
 if __name__ == "__main__":
