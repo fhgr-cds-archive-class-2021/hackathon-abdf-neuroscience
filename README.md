@@ -38,9 +38,9 @@ The following credentials are needed:
  - client_secret
 
 ## Project structure
-- [Data Simulator](./Simulator)
+- [Data Simulator](./random_data_generator.py)
     - Here we created a data simulator for testing our code as it is hard to achieve a consistent brain wave change
-- [Preprocessing](./Preprocessing)
+- [Preprocessing](./preprocessing.py)
     - Here we implemented our preprocessing logic
 - [GUI](./frontend/abdf-frontend)
     - We added a little frontend for easier target value selection (WIP)
