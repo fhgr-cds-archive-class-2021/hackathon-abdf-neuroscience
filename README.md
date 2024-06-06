@@ -7,7 +7,7 @@ Repository for hackathon in neuroscience module cds-310@FHGR
 - André Glatzl
 - Benito Rusconi
 - Dennis Bilang
-- Flavio Pfister
+- Flavio Dunlop
 
 ## Goal of the project
 The goal of our project is to set a target mood according to the brain wave frequencies.
