@@ -61,7 +61,7 @@ def save_data(event):
         print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
         # play spotipy song
         if new_wave_index != target_brain_wave:
-            print(f"From {map_index_to_brain_wave(new_wave_index)} to Gamma")
+            print(f"From {map_index_to_brain_wave(new_wave_index)} to {map_index_to_brain_wave(target_brain_wave)}")
         else:
             print("Gamma detected")
         time_delta = time.time() - start_time
@@ -95,9 +95,9 @@ async def root():
 
 # app.post target_brain_wave
 @app.post("/target_brain_wave")
-async def set_target_brain_wave(brainwave):
+async def set_target_brain_wave(payload: dict):
     global target_brain_wave
-    target_brain_wave = brainwave
+    target_brain_wave = payload['brainwave']
     return f"Target brain wave set to {map_index_to_brain_wave(target_brain_wave)}"
 
 @app.get("/play")

@@ -1,6 +1,14 @@
 # fhgr-cds-310-neuroscience
 Repository for hackathon in neuroscience module cds-310@FHGR
 
+![Showcase](showcase.png "Showcase")
+
+## Project members
+- André Glatzl
+- Benito Rusconi
+- Dennis Bilang
+- Flavio Pfister
+
 ## Goal of the project
 The goal of our project is to set a target mood according to the brain wave frequencies.
 - Gamma (greater than 30Hz)
@@ -16,6 +24,18 @@ We try to pick a playlist according to the given mood and stimulate the brain to
 - ``conda activate myenv``
 - ``conda install pip``
 - ``pip install -r requirements.txt``
+
+# Spotify Credentials
+
+At the moment, the credentials are hard-coded. However, to modularise it, the credentials need to be migrated to an environment variable file and imported from there.
+
+To use the Spotipy SDK, you need to create a Spotify App and invite the Spotify user to the app.
+
+The following credentials are needed:
+
+ - username
+ - client_id
+ - client_secret
 
 ## Project structure
 - [Data Simulator](./Simulator)
