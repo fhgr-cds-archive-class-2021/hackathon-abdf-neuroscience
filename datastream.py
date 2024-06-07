@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import threading
 from idun_guardian_sdk import GuardianClient
-from preprocessing import preprocessing_pipeline, map_index_to_brain_wave
+from preprocessing import preprocessing_pipeline, map_index_to_brain_wave, freq_trend
 from random_data_generator import ContinuousLogger
 from play_song import open_playlist_by_mood, client_id, client_secret, redirect_uri, open_song_by_name
 
@@ -35,6 +35,7 @@ current_state = None
 current_song = None
 song_names = ['50 Hz: High Level Cognition', '50 Hz: Intense Awarness', '50 Hz: Focus Music', '50 Cent - Candy Shop']  # possible songs
 current_brain_waves = [None, None, None, None, None, None]
+counter = 0 # counter to play a song the first time even gamma trend is alraday positive
 
 def brainwave2song(event):
     
@@ -44,6 +45,7 @@ def brainwave2song(event):
     global current_state
     global song_names
     global current_brain_waves
+    global counter
     
     #preoare frequency bands
     alpha = event.message['stateless_z_scores'][0]['Alpha']
@@ -59,24 +61,32 @@ def brainwave2song(event):
     current_state = new_wave_index
 
     if new_wave_index or new_wave_index == 0:
+        # Prints just for testing purposes
         print(f"Brain wave detected: {map_index_to_brain_wave(new_wave_index)}")
-        # play spotipy song
         if new_wave_index != target_brain_wave:
             print(f"From {map_index_to_brain_wave(new_wave_index)} to {map_index_to_brain_wave(target_brain_wave)}")
         else:
             print("Gamma detected")
+
+        # Logic to change the song
+        # to check situation every 10 seconds
         time_delta = time.time() - start_time
         print("time delta: ", time_delta)
-        #print(f"Time Delta: {time.time()}")
-        #print(f"Time Delta: {time_delta}")
         if time_delta > 10:
             start_time = time.time()
             print("10 seconds elapsed")
-            if new_wave_index != target_brain_wave:
-                # randomly select a song
+            # freq_trend() returns the slope of the last window of gamma values
+            # hardcoded for gamma atm
+            trend = freq_trend()
+            print(f"Gamma Trend: {trend}")
+
+            # changes song if the trend is negative and we are not in the target brain wave 
+            if (new_wave_index != target_brain_wave and trend <= 0) or counter == 0:
+                # randomly select a song a hard coded list atm
                 target_song = random.choice(song_names)
-                print(f"Change Song beaucse we are no longer in Gamma - {target_song}")
+                print(f"Change Song beaucse we are not in Gamma - {target_song}")
                 #open_playlist_by_mood(client_id, client_secret, redirect_uri, "happy")
+            counter += 1
 
 app = fastapi.FastAPI()
 
@@ -156,8 +166,8 @@ class BackgroundTasks_Generator(threading.Thread):
             time.sleep(1)
 
 # to start the Generator (simulated data) or the Live data
-t = BackgroundTasks_Generator()
-#t = BackgroundTasks_Live()
+#t = BackgroundTasks_Generator()
+t = BackgroundTasks_Live()
 
 # for testing purposes with simulated data
 if __name__ == "__main__":

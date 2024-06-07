@@ -1,5 +1,5 @@
 import numpy as np
-import scipy.stats as linregress
+from scipy.stats import linregress
 
 window = 12
 
@@ -56,10 +56,9 @@ def map_index_to_brain_wave(index):
     return brain_waves[index]
 
 
-def gamma_trend():
-    global gamma_queue, window
-    if len(gamma_queue) < window:
-        return None  # Not enough data points for trend analysis
+def freq_trend():
+    global gamma_queue
+    global window
     y = gamma_queue[-window:]
     x = np.arange(window)
     slope, intercept, r_value, p_value, std_err = linregress(x, y)

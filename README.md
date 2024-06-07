@@ -17,7 +17,7 @@ The goal of our project is to set a target mood according to the brain wave freq
 - THETA (4-8 Hz)
 - DELTA (less than 4 Hz)
 
-We try to pick a playlist according to the given mood and stimulate the brain to achieve the change of mood, e.g. we want to put our users to a more calm environment for studying.
+We try to pick a playlist or a song according to the given mood and stimulate the brain to achieve the change of mood, e.g. we want to put our users to a more calm environment for studying.
 
 ## Python Environemnt
 - ``conda create --name myenv python=3.10``
