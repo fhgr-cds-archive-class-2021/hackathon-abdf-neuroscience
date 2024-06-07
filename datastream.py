@@ -4,6 +4,7 @@ import json
 import logging
 import fastapi
 import random
+import argparse
 
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
@@ -165,11 +166,15 @@ class BackgroundTasks_Generator(threading.Thread):
             brainwave2song(data)
             time.sleep(1)
 
-# to start the Generator (simulated data) or the Live data
-#t = BackgroundTasks_Generator()
-t = BackgroundTasks_Live()
-
-# for testing purposes with simulated data
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--stream", help="Define from where the data should be streamed", type=str, choices=['live', 'generator'], default='live')
+    args = parser.parse_args()
+
+    if args.stream == 'generator':
+        # for testing purposes with simulated data
+        t = BackgroundTasks_Generator()
+    else:
+        t = BackgroundTasks_Live()
     t.start()
     uvicorn.run(app, host="0.0.0.0", port=8000)

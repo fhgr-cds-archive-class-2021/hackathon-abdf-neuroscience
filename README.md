@@ -45,8 +45,10 @@ The following credentials are needed:
 - [GUI](./frontend/abdf-frontend)
     - We added a little frontend for easier target value selection (WIP)
 - [Start Code](./)
-    - To run the code use the following:
-        - ``python .\datastream.py``
+    - To run the code where the data gets streamed from the IDUN DEVICE, use the following:
+        - ``python .\datastream.py`` or ``python .\datastream.py --stream live``
+    - Maybe you are unable to use the IDUN Device at the moment, for that we have developed a data generator for development purposes. Use the following command to use the fake data stream:
+        - ``python .\datastream.py --stream generator``
     - Then start the frontend:
         - ``cd .\frontend\abdf-frontend``
         - ``yarn install``
