@@ -25,7 +25,7 @@ We try to pick a playlist or a song according to the given mood and stimulate th
 - ``conda install pip``
 - ``pip install -r requirements.txt``
 
-# Spotify Credentials
+## Spotify Credentials
 
 At the moment, the credentials are hard-coded. However, to modularise it, the credentials need to be migrated to an environment variable file and imported from there.
 
@@ -53,3 +53,8 @@ The following credentials are needed:
         - ``cd .\frontend\abdf-frontend``
         - ``yarn install``
         - ``yarn run dev``
+
+## Potential future work
+- Extension of possible songs / playlists for different state transitions. (for example, different songs for the transition from alpha to beta than from beta to gamma)
+- Installation of a feedback loop that monitors whether a selected song has the desired effect and saves the findings in a user profile (a kind of recommender system)
+- ...
